@@ -1,0 +1,12 @@
+---
+# Variable
+- name: Include variables.
+  include_vars: "all.yml"
+
+- include: configuration_files.yml
+
+- include: custom/pages.yml
+
+- include: custom/resources.yml
+
+- include: wars/wars.yml

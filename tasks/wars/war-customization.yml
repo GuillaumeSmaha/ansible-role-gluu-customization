@@ -1,0 +1,36 @@
+- name: 'Customize {{ module.key }} War - Creates temp directory for {{ module.key }} war'
+  file:
+    path: '/opt/gluu-server-{{ gluu_version }}/opt/dist/gluu/{{ gluu_modules_directory[module.key] }}/'
+    state: directory
+
+- name: 'Customize {{ module.key }} War - Extract {{ gluu_modules_directory[module.key] }}.war'
+  unarchive:
+    src: '/opt/gluu-server-{{ gluu_version }}/opt/dist/gluu/{{ gluu_modules_directory[module.key] }}.war'
+    dest: '/opt/gluu-server-{{ gluu_version }}/opt/dist/gluu/{{ gluu_modules_directory[module.key] }}/'
+    remote_src: yes
+
+- name: 'Customize {{ module.key }} War - Copy files in {{ gluu_modules_directory[module.key] }}.war directory'
+  template:
+    src: '{{ item.path }}'
+    dest: '/opt/gluu-server-{{ gluu_version }}/opt/dist/gluu/{{ gluu_modules_directory[module.key] }}/{{ item.dest }}'
+  with_items:
+    "{{ module.value }}"
+
+
+# NOT use archive because it produces invalid ZIP according to the integrity check of zip command
+- name: 'Customize {{ module.key }} War - Archive directory to {{ gluu_modules_directory[module.key] }}.new.war'
+  command: zip -9 -r ../{{ gluu_modules_directory[module.key] }}.new.war .
+  args:
+    chdir: /opt/gluu-server-{{ gluu_version }}/opt/dist/gluu/{{ gluu_modules_directory[module.key] }}/
+
+- name: 'Customize {{ module.key }} War - Clean temp directory'
+  file:
+    path: '/opt/gluu-server-{{ gluu_version }}/opt/dist/gluu/{{ gluu_modules_directory[module.key] }}/'
+    state: absent
+
+- name: 'Customize {{ module.key }} War - Copy new {{ gluu_modules_directory[module.key] }}.war in jetty server'
+  copy:
+    src: '/opt/gluu-server-{{ gluu_version }}/opt/dist/gluu/{{ gluu_modules_directory[module.key] }}.new.war'
+    dest: '/opt/gluu-server-{{ gluu_version }}/opt/gluu/jetty/{{ gluu_modules_directory[module.key] }}/webapps/{{ gluu_modules_directory[module.key] }}.war'
+    remote_src: true
+

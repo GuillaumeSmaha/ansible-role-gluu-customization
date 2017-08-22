@@ -1,0 +1,4 @@
+---
+gluu_modules_directory:
+  oxauth: oxauth
+  oxtrust: identity

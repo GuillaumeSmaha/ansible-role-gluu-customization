@@ -1,0 +1,16 @@
+---
+
+- name: 'Ensures dir exists for resources on {{ module.key }}'
+  file:
+    path: '/opt/gluu-server-{{ gluu_version }}/opt/gluu/jetty/{{ gluu_modules_directory[module.key] }}/custom/static/{{ item.dest | default(".") | dirname }}/'
+    state: directory
+  with_items:
+    "{{ module.value }}"
+
+- name: 'Copy resources for {{ module.key }}'
+  copy:
+    src: '{{ item.path }}'
+    dest: '/opt/gluu-server-{{ gluu_version }}/opt/gluu/jetty/{{ gluu_modules_directory[module.key] }}/custom/static/{{ item.dest | default("./") }}'
+  with_items:
+    "{{ module.value }}"
+    

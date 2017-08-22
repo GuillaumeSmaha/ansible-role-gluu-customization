@@ -1,0 +1,8 @@
+---
+
+- name: War - Customization
+  include: war-customization.yml
+  with_dict:
+    "{{ gluu_customize_wars | default({}) }}"
+  loop_control:
+    loop_var: module

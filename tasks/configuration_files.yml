@@ -1,0 +1,8 @@
+---
+
+- name: Copy configuration files for each module
+  template:
+    src: '{{ item }}'
+    dest: '/opt/gluu-server-{{ gluu_version }}/etc/gluu/conf/'
+  with_items:
+    "{{ gluu_copy_configuration_files | default([]) }}"

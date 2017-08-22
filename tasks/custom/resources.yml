@@ -1,0 +1,8 @@
+---
+
+- name: Copy resources for each module
+  include: copy_resources.yml
+  with_dict:
+    "{{ gluu_copy_resources | default({}) }}"
+  loop_control:
+    loop_var: module
