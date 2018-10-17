@@ -54,7 +54,7 @@ vars:
 
   # Define a custom version of the package to install.
   # To get a list of available package versions visit: https://gluu.org/docs/ce/
-  gluu_version: 3.0.2
+  gluu_version: 3.1.4
 
   # List of files to copy in /etc/gluu/conf inside the Gluu container
   # Can use Jinja template
