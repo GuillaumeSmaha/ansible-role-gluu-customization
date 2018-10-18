@@ -1,4 +1,3 @@
-
 gluu_copy_pages:
   oxauth:
     - path: 'custom/oxauth/pages/login.xhtml'

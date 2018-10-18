@@ -16,7 +16,6 @@
   with_items:
     "{{ module.value }}"
 
-
 # NOT use archive because it produces invalid ZIP according to the integrity check of zip command
 - name: 'Customize {{ module.key }} War - Archive directory to {{ gluu_modules_directory[module.key] }}.new.war'
   command: zip -9 -r ../{{ gluu_modules_directory[module.key] }}.new.war .
@@ -33,4 +32,3 @@
     src: '/opt/gluu-server-{{ gluu_version }}/opt/dist/gluu/{{ gluu_modules_directory[module.key] }}.new.war'
     dest: '/opt/gluu-server-{{ gluu_version }}/opt/gluu/jetty/{{ gluu_modules_directory[module.key] }}/webapps/{{ gluu_modules_directory[module.key] }}.war'
     remote_src: true
-
