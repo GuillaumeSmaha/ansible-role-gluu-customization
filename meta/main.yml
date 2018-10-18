@@ -17,6 +17,5 @@ galaxy_info:
     - xenial
   galaxy_tags:
     - gluu
-    - gluu:node
-    - gluu:customization
+    - cluster
     - customization
